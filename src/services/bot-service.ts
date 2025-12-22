@@ -23,6 +23,7 @@ export const BotService = {
 
                    bot.once("spawn", () => {
                        console.log(`Bot ${bot.username} conectado exitosamente`)
+                       dto.ws.send(`Bot ${bot.username} conectado exitosamente`);
                        botsConectados.push(bot);
                        bot.chat("/register penegigante penegigante")
                        bot.chat("/login penegigante")
@@ -30,11 +31,15 @@ export const BotService = {
                    });
 
                    bot.on('error', (err)=>{
+                       dto.ws.send(`Bot  ${bot._client.username} fue descontectado: ${err.message}`);
                        console.log(`Bot  ${bot._client.username} fue descontectado: ${err.message}`);
                        resolve(null);
                    });
 
                    bot.on('kicked', (err)=>{
+                       dto.ws.send(`El bot ${bot._client.username} fue kickeado del server: ${
+                           JSON.stringify(err) ?? err
+                       }`);
                        console.log(`El bot ${bot._client.username} fue kickeado del server: ${
                            JSON.stringify(err) ?? err
                        }`);
