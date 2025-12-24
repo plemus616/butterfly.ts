@@ -8,14 +8,10 @@ await app.register(fastifyCors, {
    origin: '*',
    methods: ["GET", "POST", "OPTIONS"]
 });
-await app.register(fastifyWebsocket, {
-    options: {
-        verifyClient: () => true
-    }
-});
+await app.register(fastifyWebsocket)
 await app.register(routes, {prefix: "/api"});
 await wsListenerService();
-app.listen({port:6666, host:'0.0.0.0'}, (err)=>{
+app.listen({port:8080, host:'0.0.0.0'}, (err)=>{
     if(err){
         app.log.error(err);
         process.exit(1);

@@ -4,7 +4,7 @@ import {HttpFloodService} from "./http-flood-service.ts";
 import {TcpFloodService} from "./tcp-flood-service.ts";
 import {BotService} from "./bot-service.ts";
 export async function wsListenerService(){
-    const ws = new websocket("ws://localhost:6666/api/ws/listener");
+    const ws = new websocket("ws://localhost:8080/api/ws/listener");
     ws.on("message", async (message)=>{
        const payload = parseToJson(message.toString("utf-8"));
            if(payload instanceof  Object){
